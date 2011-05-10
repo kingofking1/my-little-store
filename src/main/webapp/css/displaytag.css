@@ -1,0 +1,93 @@
+th {
+	padding: 2px 4px 2px 4px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+thead tr {
+	background-color: #fc0;
+}
+
+th.sorted {
+	background-color: orange;
+}
+
+th a,th a:visited {
+	color: black;
+}
+
+th a:hover {
+	text-decoration: underline;
+	color: black;
+}
+
+th.sorted a,th.sortable a {
+	background-position: right;
+	display: block;
+	width: 100%;
+}
+
+tr.odd {
+	background-color: #fffff
+}
+
+tr.tableRowEven,tr.even {
+	background-color: #dddddd
+}
+
+div.exportlinks {
+	background-color: #eee;
+	border: 1px dotted #999;
+	padding: 2px 4px 2px 4px;
+	margin: 2px 0 10px 0;
+	width: 100%;
+}
+
+span.export {
+	padding: 0 4px 1px 12px;
+	display: inline;
+	display: inline-block;
+	cursor: pointer;
+	background-repeat:no-repeat;
+}
+
+span.excel {
+	background-image: url(../img/display/ico_file_excel.png);
+	
+}
+
+span.csv {
+	background-image: url(../img/display/ico_file_csv.png);
+}
+
+span.xml {
+	background-image: url(../img/display/ico_file_xml.png);
+}
+
+span.pdf {
+	background-image: url(../img/display/ico_file_pdf.png);
+}
+
+span.rtf {
+	background-image: url(../img/display/ico_file_rtf.png);
+}
+
+span.pagebanner {
+	background-color: #eee;
+	border: 1px dotted #999;
+	padding: 2px 4px 2px 4px;
+	width: 100%;
+	margin-top: 10px;
+	display: block;
+	<!--border-bottom: none;-->
+}
+
+span.pagelinks {
+	background-color: #eee;
+	border: 1px dotted #999;
+	padding: 2px 4px 2px 4px;
+	width: 100%;
+	display: block;
+	<!--border-top: none;-->
+	margin-bottom: -5px;
+}

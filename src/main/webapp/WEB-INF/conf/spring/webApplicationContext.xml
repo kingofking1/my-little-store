@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:flow="http://www.springframework.org/schema/webflow-config" 
+       xmlns:p = "http://www.springframework.org/schema/p"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+              http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+              http://www.springframework.org/schema/context
+              http://www.springframework.org/schema/context/spring-context-2.5.xsd
+    		  http://www.springframework.org/schema/webflow-config   
+    		  http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+    		  http://www.springframework.org/schema/mvc
+              http://www.springframework.org/schema/mvc/spring-mvc.xsd">   
+    
+    <!-- Properties file certain specific App Stuff -->
+    <context:property-placeholder location="classpath:my-application.properties"/>
+
+	<!--==================  Annotation config  =====================-->
+    <context:annotation-config/>  
+       
+    <!--==================  Location of Controllers  =====================-->
+	<context:component-scan base-package="mx.com.juca.store.web.controller"/>
+		
+	<!--==================  InternalResourceViewResolver  =====================	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/jsp/"/>
+    	<property name="suffix" value=".jsp"/>
+	</bean>
+	-->
+	
+	<!-- Resolves localized messages*.properties file(s) in the application to allow for internationalization -->
+	<bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource" id="messageSource" p:basenames="WEB-INF/i18n/messages" p:fallbackToSystemLocale="false"/>
+	
+	<!-- Declare the Interceptor -->
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="locale"/>
+	</mvc:interceptors>
+	
+	<!-- Declare the Resolver -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
+		
+	<!-- Stores preferred theme configuration in a cookie -->
+	<bean class="org.springframework.web.servlet.theme.CookieThemeResolver" id="themeResolver" p:cookieName="theme" p:defaultThemeName="standard"/>
+	
+	<!-- Creates reCaptcha Instance  -->
+	<bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl">
+    	<property name="privateKey" value="${recaptcha.private.key}" />
+        <property name="publicKey" value="${recaptcha.public.key}" />
+        <property name="includeNoscript" value="false" />
+	</bean>
+	
+	<!-- MultipartResolver to help File Upload -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="50000"/><!-- in bytes -->
+	</bean>
+        
+	<!--==================  Tiles Integration - View Resolver  =====================-->
+	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" id="tilesViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>      
+    </bean>
+    
+    <!--==================  Tiles Configuration  =====================-->
+    <bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer" id="tilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/conf/layouts/layouts.xml</value>
+                <!-- Scan views directory for Tiles configurations -->
+                <value>/jsp/**/views.xml</value>
+            </list>
+        </property>
+    </bean>	
+
+</beans>

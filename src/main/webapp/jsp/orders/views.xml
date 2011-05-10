@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="default" name="orders/display_orders">
+        <put-attribute name="body" value="/jsp/orders/display_orders.jsp"/>
+    </definition>
+	<definition extends="default" name="orders/order_details">
+        <put-attribute name="body" value="/jsp/orders/order_details.jsp"/>
+    </definition>
+</tiles-definitions>
