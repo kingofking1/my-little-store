@@ -279,6 +279,13 @@
 		</dependency>		
   </dependencies>
 
+  <scm>
+  	<connection>scm:svn:http://my-little-store.googlecode.com/svn/trunk</connection>
+  	<developerConnection>scm:svn:https://my-little-store.googlecode.com/svn/trunk</developerConnection>
+  	<tag>HEAD</tag>
+  	<url>https://my-little-store.googlecode.com/svn/trunk</url>
+  </scm>
+  
   <build>
     	<finalName>little-store</finalName>
 		<defaultGoal>package</defaultGoal>
