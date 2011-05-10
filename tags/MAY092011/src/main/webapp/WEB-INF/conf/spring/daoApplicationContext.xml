@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+              http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+              http://www.springframework.org/schema/context
+              http://www.springframework.org/schema/context/spring-context-2.5.xsd              
+              http://www.springframework.org/schema/jee
+              http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">              	
+
+	<!-- =========================  Data Sources  ============================= -->
+		
+	<bean id="mySqlDataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/little_store?autoReconnect=true"/>
+		<property name="username" value="root"/>
+		<property name="password" value="1234"/>
+		<property name="defaultAutoCommit" value="false"/>
+	</bean>
+	
+	<bean id="hSqlDataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+		<property name="url" value="jdbc:hsqldb:hsql://localhost/"/>
+		<property name="username" value="SA"/>
+		<property name="password" value=""/>
+		<property name="defaultAutoCommit" value="false"/>
+	</bean>
+	
+	<bean id="postgreSqlDataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.postgresql.Driver"/>
+		<property name="url" value="jdbc:postgresql://localhost:5432/little-store-payments"/>
+		<property name="username" value="payments"/>
+		<property name="password" value="1234"/>
+		<property name="defaultCatalog" value="public"/>
+	</bean>		
+	<!-- 
+	<jee:jndi-lookup id="mySqlDataSource" jndi-name="java:comp/env/jdbc/littleStoreDS"/>
+	<jee:jndi-lookup id="hSqlDataSource" jndi-name="java:comp/env/jdbc/paymentsDS"/>
+	<jee:jndi-lookup id="postgreSqlDataSource" jndi-name="java:comp/env/jdbc/paymentsDS"/>
+	 -->
+	<!--============================= SessionFactory ===============================-->
+	<bean id="mySqlSessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="mySqlDataSource" />
+		<property name="configLocation">
+			<!-- <value>/WEB-INF/conf/hibernate/mapping.cfg.xml</value> -->
+			<value>file:src/main/webapp/WEB-INF/conf/hibernate/mapping.cfg.xml</value>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLInnoDBDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.order_updates">true</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.use_sql_comments">false</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">
+					false
+				</prop>
+				<prop key="hibernate.jdbc.batch_size">15</prop>
+				<prop key="hibernate.jdbc.batch_versioned_data">
+					true
+				</prop>
+				<prop key="hibernate.query.factory_class">
+					org.hibernate.hql.ast.ASTQueryTranslatorFactory
+				</prop>
+				<prop key="hibernate.connection.isolation">4</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="hSqlSessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="postgreSqlDataSource" />
+		<property name="configLocation">
+			<!-- <value>/WEB-INF/conf/hibernate/mapping_payments.cfg.xml</value> -->
+			<value>file:src/main/webapp/WEB-INF/conf/hibernate/mapping_payments.cfg.xml</value>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					<!-- org.hibernate.dialect.HSQLDialect -->
+					org.hibernate.dialect.PostgreSQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.order_updates">true</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.use_sql_comments">false</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">
+					false
+				</prop>
+				<prop key="hibernate.jdbc.batch_size">15</prop>
+				<prop key="hibernate.jdbc.batch_versioned_data">
+					true
+				</prop>
+				<prop key="hibernate.query.factory_class">
+					org.hibernate.hql.ast.ASTQueryTranslatorFactory
+				</prop>
+				<prop key="hibernate.connection.isolation">4</prop>
+			</props>
+		</property>
+	</bean>	
+	
+	<!--==================  Annotation config  =====================-->
+    <context:annotation-config/>
+	
+	<!-- ============================  DAOs  ================================== -->
+	<bean id="BrandDAO" class="mx.com.juca.store.persistence.dao.impl.BrandDAOImpl"/>
+	
+	<bean id="CategoryDAO" class="mx.com.juca.store.persistence.dao.impl.CategoryDAOImpl"/>
+	
+	<bean id="CreditCardDAO" class="mx.com.juca.store.persistence.dao.impl.CreditCardDAOImpl"/>
+	
+	<bean id="CustomerDAO" class="mx.com.juca.store.persistence.dao.impl.CustomerDAOImpl"/>
+	
+	<bean id="OrderDAO" class="mx.com.juca.store.persistence.dao.impl.OrderDAOImpl"/>
+	
+	<bean id="ProductDAO" class="mx.com.juca.store.persistence.dao.impl.ProductDAOImpl"/>
+	
+	<bean id="ProductOrderDAO" class="mx.com.juca.store.persistence.dao.impl.ProductOrderDAOImpl"/>
+	
+	
+	<bean id="PaymentDAO" class="mx.com.juca.store.persistence.dao.impl.payment.PaymentDAOImpl"/>
+		
+</beans>

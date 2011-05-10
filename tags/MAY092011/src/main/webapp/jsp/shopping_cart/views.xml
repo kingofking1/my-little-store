@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="default" name="shopping_cart/shopping_cart_confirmation">
+        <put-attribute name="body" value="/jsp/shopping_cart/shopping_cart_confirmation.jsp"/>
+    </definition>
+    <definition extends="default" name="shopping_cart/shopping_cart">
+        <put-attribute name="body" value="/jsp/shopping_cart/shopping_cart.jsp"/>
+    </definition>    
+</tiles-definitions>

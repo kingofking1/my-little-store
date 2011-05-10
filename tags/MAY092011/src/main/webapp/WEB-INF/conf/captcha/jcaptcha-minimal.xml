@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+              http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">                
+	
+	<!-- =================== Captcha (Predefined) Engines =================== -->
+    <bean id="imageEngineBean3" class="com.octo.captcha.engine.image.gimpy.BaffleListGimpyEngine"/>
+    <bean id="imageEngineBean4" class="com.octo.captcha.engine.image.gimpy.BasicGimpyEngine"/>
+    <bean id="imageEngineBean5" class="com.octo.captcha.engine.image.gimpy.DefaultGimpyEngine"/>
+    <bean id="imageEngineBean6" class="com.octo.captcha.engine.image.gimpy.DeformedBaffleListGimpyEngine"/>
+    <bean id="imageEngineBean7" class="com.octo.captcha.engine.image.gimpy.DoubleRandomListGimpyEngine"/>
+    <bean id="imageEngineBean8" class="com.octo.captcha.engine.image.gimpy.FilteredBaffleListGimpyEngine"/>
+    <bean id="imageEngineBean9" class="com.octo.captcha.engine.image.gimpy.FilteredDoubleRandomListGimpyEngine"/>
+    <bean id="imageEngineBean10" class="com.octo.captcha.engine.image.gimpy.FilteredGimpyEngine"/>
+    <bean id="imageEngineBean11" class="com.octo.captcha.engine.image.gimpy.FilteredListGimpyEngine"/>
+	<!--	Only 12 and 13 are pretty decent -->
+    <bean id="imageEngineBean12" class="com.octo.captcha.engine.image.gimpy.NonLinearTextGimpyEngine"/>
+    <bean id="imageEngineBean13" class="com.octo.captcha.engine.image.gimpy.SimpleListImageCaptchaEngine"/>
+
+	<!-- =================== Captcha Service =================== -->
+	<bean id="captchaService" class="com.octo.captcha.service.multitype.GenericManageableCaptchaService">
+		<constructor-arg index="0" ref="imageEngineBean12"/>
+		<constructor-arg index="1"><value>180</value></constructor-arg>
+		<constructor-arg index="2"><value>180000</value></constructor-arg>
+		<constructor-arg index="3"><value>200</value></constructor-arg>
+	</bean>
+
+</beans>

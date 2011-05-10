@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="default" name="checkout/confirm_order">
+        <put-attribute name="body" value="/jsp/checkout/confirm_order.jsp"/>
+    </definition>
+    <definition extends="default" name="checkout/order_completed">
+        <put-attribute name="body" value="/jsp/checkout/order_completed.jsp"/>
+    </definition>
+    <definition extends="default" name="checkout/payment_method">
+        <put-attribute name="body" value="/jsp/checkout/payment_method.jsp"/>
+    </definition>
+    <definition extends="default" name="checkout/review_order">
+        <put-attribute name="body" value="/jsp/checkout/review_order.jsp"/>
+    </definition>            
+</tiles-definitions>

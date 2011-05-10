@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+              http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">                
+	
+	<!-- =================== Captcha Engines =================== -->
+    <bean id="imageEngineBean" class="com.octo.captcha.engine.GenericCaptchaEngine">
+        <constructor-arg index="0">
+			<list>
+    	    	<ref bean="captchaFactoryBean"/>
+        	</list>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="imageEngineBean3" class="com.octo.captcha.engine.image.gimpy.BaffleListGimpyEngine"/>
+    <bean id="imageEngineBean4" class="com.octo.captcha.engine.image.gimpy.BasicGimpyEngine"/>
+    <bean id="imageEngineBean5" class="com.octo.captcha.engine.image.gimpy.DefaultGimpyEngine"/>
+    <bean id="imageEngineBean6" class="com.octo.captcha.engine.image.gimpy.DeformedBaffleListGimpyEngine"/>
+    <bean id="imageEngineBean7" class="com.octo.captcha.engine.image.gimpy.DoubleRandomListGimpyEngine"/>
+    <bean id="imageEngineBean8" class="com.octo.captcha.engine.image.gimpy.FilteredBaffleListGimpyEngine"/>
+    <bean id="imageEngineBean9" class="com.octo.captcha.engine.image.gimpy.FilteredDoubleRandomListGimpyEngine"/>
+    <bean id="imageEngineBean10" class="com.octo.captcha.engine.image.gimpy.FilteredGimpyEngine"/>
+    <bean id="imageEngineBean11" class="com.octo.captcha.engine.image.gimpy.FilteredListGimpyEngine"/>
+	<!--	Only 12 and 13 are pretty decent -->
+    <bean id="imageEngineBean12" class="com.octo.captcha.engine.image.gimpy.NonLinearTextGimpyEngine"/>
+    <bean id="imageEngineBean13" class="com.octo.captcha.engine.image.gimpy.SimpleListImageCaptchaEngine"/>
+
+	<!-- =================== Captcha Factory Bean =================== -->
+    <bean id="captchaFactoryBean" class="com.octo.captcha.image.gimpy.GimpyFactory" >
+        <constructor-arg ref="wordGeneratorBean"/>
+        <constructor-arg ref="wordToImageBean"/>
+    </bean>
+
+	<!-- =================== Dictionary Word Generator =================== -->
+    <bean id="wordGeneratorBean" class= "com.octo.captcha.component.word.wordgenerator.DictionaryWordGenerator" >
+        <constructor-arg ref="fileDictionaryBean"/>
+    </bean>
+
+	<!-- =================== File Dictionary =================== -->
+    <bean id="fileDictionaryBean" class="com.octo.captcha.component.word.FileDictionary" >
+        <constructor-arg index="0"><value>toddlist</value></constructor-arg>
+    </bean>
+
+	<!-- =================== Deformed Compose Word To Image =================== -->
+    <bean id="wordToImageBean" class="com.octo.captcha.component.image.wordtoimage.DeformedComposedWordToImage" >
+        <constructor-arg index="0" ref="randomFontGeneratorBean"/>
+        <constructor-arg index="1" ref="backGeneratorFunkyBean"/>
+        <constructor-arg index="2" ref="simpleColoredPasterBean"/>
+        <constructor-arg index="3" ref="rippleDeformationBack"/>
+        <constructor-arg index="4" ref="none"/>
+        <constructor-arg index="5" ref="waterDeformation"/>
+    </bean>
+
+	<!-- =================== Random Font Generator =================== -->
+    <bean id="randomFontGeneratorBean" class="com.octo.captcha.component.image.fontgenerator.RandomFontGenerator" >
+        <constructor-arg index="0"><value>40</value></constructor-arg>
+        <constructor-arg index="1"><value>50</value></constructor-arg>
+        <constructor-arg index="2">
+			<list>
+                <ref bean="fontArial"/>
+                <ref bean="fontTahoma"/>
+                <ref bean="fontVerdana"/>
+                <ref bean="fontComic"/>
+                <ref bean="fontLucida"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+	<!-- =================== Fonts =================== -->
+    <bean id="fontArial" class="java.awt.Font" >
+        <constructor-arg index="0"><value>Arial</value></constructor-arg>
+        <constructor-arg index="1"><value>0</value></constructor-arg>
+        <constructor-arg index="2"><value>10</value></constructor-arg>
+    </bean>
+	<bean id="fontTahoma" class="java.awt.Font" >
+		<constructor-arg index="0"><value>Tahoma</value></constructor-arg>
+		<constructor-arg index="1"><value>0</value></constructor-arg>
+		<constructor-arg index="2"><value>10</value></constructor-arg>
+	</bean>
+	<bean id="fontVerdana" class="java.awt.Font" >
+		<constructor-arg index="0"><value>Verdana</value></constructor-arg>
+		<constructor-arg index="1"><value>0</value></constructor-arg>
+		<constructor-arg index="2"><value>10</value></constructor-arg>
+	</bean>
+	<bean id="fontComic" class="java.awt.Font" >
+		<constructor-arg index="0"><value>Comic sans MS</value></constructor-arg>
+		<constructor-arg index="1"><value>0</value></constructor-arg>
+		<constructor-arg index="2"><value>10</value></constructor-arg>
+	</bean>
+	<bean id="fontLucida" class="java.awt.Font" >
+		<constructor-arg index="0"><value>Lucida console</value></constructor-arg>
+		<constructor-arg index="1"><value>0</value></constructor-arg>
+		<constructor-arg index="2"><value>10</value></constructor-arg>
+	</bean>    
+
+	<!-- =================== Backgrounds =================== -->
+    <bean id="uniColorBackGeneratorBean" class="com.octo.captcha.component.image.backgroundgenerator.UniColorBackgroundGenerator" >
+        <constructor-arg index="0"><value>300</value></constructor-arg>
+        <constructor-arg index="1"><value>100</value></constructor-arg>
+    </bean>
+	
+	<bean id="backGeneratorFunkyBean" class="com.octo.captcha.component.image.backgroundgenerator.FunkyBackgroundGenerator" >
+		<constructor-arg index="0"><value>300</value></constructor-arg>
+		<constructor-arg index="1"><value>100</value></constructor-arg>
+		<constructor-arg type="com.octo.captcha.component.image.color.ColorGenerator" index="2" ref="randomListColorGeneratorBean"/>
+		<constructor-arg type="com.octo.captcha.component.image.color.ColorGenerator" index="3" ref="randomListColorGeneratorBean"/>
+		<constructor-arg type="com.octo.captcha.component.image.color.ColorGenerator" index="4" ref="randomListColorGeneratorBean"/>
+		<constructor-arg type="com.octo.captcha.component.image.color.ColorGenerator" index="5" ref="randomListColorGeneratorBean"/>
+		<constructor-arg index="6"><value>0.2f</value></constructor-arg>
+	</bean>
+		    
+	<!-- =================== Text Pasters =================== -->
+    <bean id="simpleWhitePasterBean" class="com.octo.captcha.component.image.textpaster.SimpleTextPaster" >
+        <constructor-arg type="java.lang.Integer" index="0">
+            <value>4</value>
+        </constructor-arg>
+        <constructor-arg type="java.lang.Integer" index="1">
+            <value>6</value>
+        </constructor-arg>
+        <constructor-arg type="java.awt.Color" index="2">
+            <ref bean="colorBlack"/>
+        </constructor-arg>
+    </bean>
+
+	<bean id="simpleColoredPasterBean" class="com.octo.captcha.component.image.textpaster.RandomTextPaster" >
+		<constructor-arg type="java.lang.Integer" index="0"><value>4</value></constructor-arg>
+		<constructor-arg type="java.lang.Integer" index="1"><value>6</value></constructor-arg>
+		<constructor-arg type="com.octo.captcha.component.image.color.ColorGenerator" index="2" ref="randomRangeColorGeneratorDarkBean"/>
+		<constructor-arg index="3"><value>true</value></constructor-arg>
+	</bean>    
+    
+    <!-- =================== Random Range Color Generator =================== -->
+	<bean id="randomRangeColorGeneratorDarkBean" class="com.octo.captcha.component.image.color.RandomRangeColorGenerator" >
+		<constructor-arg index="0">
+			<list>
+                <value>0</value>
+                <value>150</value>
+           	</list>
+           </constructor-arg>
+		<constructor-arg index="1">
+			<list>
+                <value>0</value>
+                <value>150</value>
+           	</list>
+           </constructor-arg>
+		<constructor-arg index="2">
+			<list>
+                <value>0</value>
+                <value>150</value>
+           	</list>
+           </constructor-arg>
+		<constructor-arg index="3">
+			<list>
+                <value>255</value>
+                <value>255</value>
+           	</list>
+           </constructor-arg>
+	</bean> 
+	
+	<!-- =================== RandomList Color Generator =================== -->
+	<bean id="randomListColorGeneratorBean" class="com.octo.captcha.component.image.color.RandomListColorGenerator" >
+		<constructor-arg index="0">
+			<list>
+				<ref bean="yellow"/>
+				<ref bean="blue"/>
+				<ref bean="lightBlue"/>
+				<ref bean="colorBlack"/>
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	
+	<!-- =================== Colors =================== -->
+	<bean id="blue" class="java.awt.Color" >
+		<constructor-arg type="int" index="0"><value>0</value></constructor-arg>
+		<constructor-arg type="int" index="1"><value>0</value></constructor-arg>
+		<constructor-arg type="int" index="2"><value>255</value></constructor-arg>
+	</bean>	
+	<bean id="lightBlue" class="java.awt.Color" >
+		<constructor-arg type="int" index="0"><value>200</value></constructor-arg>
+		<constructor-arg type="int" index="1"><value>200</value></constructor-arg>
+		<constructor-arg type="int" index="2"><value>255</value></constructor-arg>
+	</bean>
+	<bean id="yellow" class="java.awt.Color" >
+		<constructor-arg type="int" index="0"><value>255</value></constructor-arg>
+		<constructor-arg type="int" index="1"><value>255</value></constructor-arg>
+		<constructor-arg type="int" index="2"><value>0</value></constructor-arg>
+	</bean>
+	<bean id="colorBlack" class="java.awt.Color" >
+        <constructor-arg index="0"><value>0</value></constructor-arg>
+        <constructor-arg index="1"><value>0</value></constructor-arg>
+        <constructor-arg index="2"><value>0</value></constructor-arg>
+    </bean>	
+
+
+	<!-- =================== Captcha Service =================== -->
+	<bean id="captchaService" class="com.octo.captcha.service.multitype.GenericManageableCaptchaService">
+		<constructor-arg index="0" ref="imageEngineBean"/>
+		<constructor-arg index="1"><value>180</value></constructor-arg>
+		<constructor-arg index="2"><value>180000</value></constructor-arg>
+		<constructor-arg index="3"><value>200</value></constructor-arg>
+	</bean>
+	
+	
+	<!-- =================== Deformations =================== -->
+	<bean id="sphere" class="com.jhlabs.image.SphereFilter">
+		<property name="refractionIndex">
+			<value>1</value>
+		</property>
+	</bean>
+	
+	<bean id="emboss" class="com.jhlabs.image.EmbossFilter">
+		<property name="bumpHeight">
+			<value>1.0</value>
+		</property>
+	</bean>
+
+	<bean id="rippleBack" class="com.jhlabs.image.RippleFilter">
+		<property name="waveType">
+			<value>3</value>
+		</property>
+		<property name="XAmplitude">
+			<value>10</value>
+		</property>
+		<property name="YAmplitude">
+			<value>3</value>
+		</property>
+		<property name="XWavelength">
+			<value>20</value>
+		</property>
+		<property name="YWavelength">
+			<value>10</value>
+		</property>
+		<property name="edgeAction">
+			<value>1</value>
+		</property>
+	</bean>
+
+	<bean id="smear" class="com.jhlabs.image.SmearFilter">
+		<property name="shape">
+			<value>0</value>
+		</property>
+		<property name="distance">
+			<value>15</value>
+		</property>
+		<property name="density">
+			<value>0.4</value>
+		</property>
+		<property name="scatter">
+			<value>0.5</value>
+		</property>
+		<property name="angle">
+			<value>0.0</value>
+		</property>
+		<property name="mix">
+			<value>0.6</value>
+		</property>
+		<property name="fadeout">
+			<value>0</value>
+		</property>
+	</bean>
+
+	<bean id="ripple" class="com.jhlabs.image.RippleFilter">
+		<property name="waveType">
+			<value>1</value>
+		</property>
+		<property name="XAmplitude">
+			<value>2</value>
+		</property>
+		<property name="YAmplitude">
+			<value>2</value>
+		</property>
+		<property name="XWavelength">
+			<value>10</value>
+		</property>
+		<property name="YWavelength">
+			<value>10</value>
+		</property>
+		<property name="edgeAction">
+			<value>1</value>
+		</property>
+	</bean>
+
+	<bean id="ripple2" class="com.jhlabs.image.RippleFilter">
+		<property name="waveType">
+			<value>2</value>
+		</property>
+		<property name="XAmplitude">
+			<value>2</value>
+		</property>
+		<property name="YAmplitude">
+			<value>2</value>
+		</property>
+		<property name="XWavelength">
+			<value>10</value>
+		</property>
+		<property name="YWavelength">
+			<value>10</value>
+		</property>
+		<property name="edgeAction">
+			<value>1</value>
+		</property>
+	</bean>
+
+	<bean id="ripple3" class="com.jhlabs.image.RippleFilter">
+		<property name="waveType">
+			<value>5</value>
+		</property>
+		<property name="XAmplitude">
+			<value>5</value>
+		</property>
+		<property name="YAmplitude">
+			<value>5</value>
+		</property>
+		<property name="XWavelength">
+			<value>10</value>
+		</property>
+		<property name="YWavelength">
+			<value>10</value>
+		</property>
+		<property name="edgeAction">
+			<value>1</value>
+		</property>
+	</bean>
+
+
+	<bean id="twirl" class="com.jhlabs.image.TwirlFilter">
+		<property name="angle">
+			<value>0.8</value>
+		</property>
+	</bean>
+
+	<bean id="water" class="com.jhlabs.image.WaterFilter">
+		<property name="amplitude">
+			<value>2</value>
+		</property>
+		<property name="antialias">
+			<value>true</value>
+		</property>
+		<property name="wavelength">
+			<value>20</value>
+		</property>
+	</bean>
+
+	<bean id="weaves" class="com.jhlabs.image.WeaveFilter">
+		<property name="useImageColors">
+			<value>true</value>
+		</property>
+		<property name="XGap">
+			<value>2</value>
+		</property>
+		<property name="XWidth">
+			<value>10</value>
+		</property>
+		<property name="YWidth">
+			<value>16</value>
+		</property>
+		<property name="YGap">
+			<value>6</value>
+		</property>
+	</bean>
+
+
+	<bean id="crystal" class="com.jhlabs.image.CrystalizeFilter">
+		<property name="scale">
+			<value>0.5</value>
+		</property>
+		<property name="gridType">
+			<value>1</value>
+		</property>
+		<property name="fadeEdges">
+			<value>false</value>
+		</property>
+		<property name="edgeThickness">
+			<value>0.4</value>
+		</property>
+		<property name="randomness">
+			<value>1.0</value>
+		</property>
+	</bean>
+
+	<bean id="smearDeformation"
+		class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+		<constructor-arg index="0">
+			<list>
+				<ref bean="smear" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="rippleDeformation"
+		class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+		<constructor-arg index="0">
+			<list>
+				<ref bean="ripple" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="ripple2Deformation"
+		class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+		<constructor-arg index="0">
+			<list>
+				<ref bean="ripple2" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="ripple3Deformation"
+		class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+		<constructor-arg index="0">
+			<list>
+				<ref bean="ripple3" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+
+	<bean id="sphereDeformation"
+		class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+		<constructor-arg index="0">
+			<list>
+				<ref bean="sphere" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="waterDeformation"
+		class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+		<constructor-arg index="0">
+			<list>
+				<ref bean="water" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="embossDeformation"
+		class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+		<constructor-arg index="0">
+			<list>
+				<ref bean="emboss" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="rippleDeformationBack"
+		class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+		<constructor-arg index="0">
+			<list>
+				<ref bean="rippleBack" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="cristalDeformation"
+		class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+		<constructor-arg index="0">
+			<list>
+				<ref bean="crystal" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="weavesDeformation"
+		class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+		<constructor-arg index="0">
+			<list>
+				<ref bean="weaves" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="twirlDeformation"
+		class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+		<constructor-arg index="0">
+			<list>
+				<ref bean="twirl" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="none"
+		class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+		<constructor-arg index="0">
+			<null />
+		</constructor-arg>
+	</bean>	
+   
+</beans>
