@@ -1,0 +1,17 @@
+/*
+-- Query: select * from `little_store`.`products`
+LIMIT 0, 1000
+
+-- Date: 2011-02-23 14:22
+*/
+INSERT INTO `products` (id_product,id_category,id_brand,name,description,code,price,quantity) VALUES (1,4,1,'Canon PowerShot SD1300IS 12.1 MP Digital Camera with 4x Zoom','Canon PowerShot SD1300IS 12.1 MP Digital Camera with 4x Wide Angle Optical Image Stabilized Zoom and 2.7-Inch LCD (Blue)','B0035FZJKS','150.00',10);
+INSERT INTO `products` (id_product,id_category,id_brand,name,description,code,price,quantity) VALUES (2,3,8,'Dell Inspiron 6400 Laptop','15.4" Wide Screen with true life, Intel Core 2 Duo processor T7200 at 2.00GHz, 1GB RAM, 160GB Hard Drive, 8X DVD +/- RW w/dbl layer write capability, Windows XP PRO','B00194NL3Y','499.00',4);
+INSERT INTO `products` (id_product,id_category,id_brand,name,description,code,price,quantity) VALUES (3,4,9,'Samsung F480','Unlocked Phone with Touchscreen, 5 MP Camera, MP3/Video Player, and MicroSD Slot--International Version with No Warranty (Coral Pink)','B001FVMS9Y','150.00',10);
+INSERT INTO `products` (id_product,id_category,id_brand,name,description,code,price,quantity) VALUES (4,7,18,'Black & Decker CDC180ASB Compact Drill','18-volt Compact Drill w/20 Accessories. Designed to handle all kinds of around-the-house jobs with ease, this cordless drill kit is powerful, yet lightweight enough to easily handle and hold.','B00173CFT8','059.99',13);
+INSERT INTO `products` (id_product,id_category,id_brand,name,description,code,price,quantity) VALUES (5,5,11,'Nintendo Wii Console Black Bundle','Nintendo Wii with Wii Sports and Wii Sport Resort','B003EH0BQ4','221.05',17);
+INSERT INTO `products` (id_product,id_category,id_brand,name,description,code,price,quantity) VALUES (6,1,22,'Nature Valley Crunchy Granola Bars, Peanut Butter','Nature Valley Crunchy Granola Bars, Peanut Butter, 12-Count Boxes (Pack of 6)','B001E6IULK','016.77',24);
+INSERT INTO `products` (id_product,id_category,id_brand,name,description,code,price,quantity) VALUES (7,5,5,'PlayStation 3','Internal 40GB HDD for storing your games, music, and photos. Built-in Blu-ray player. Cell Broadband Engine advanced microprocessor. SIXAXIS wireless controller','B0009VXAM0','350.00',15);
+INSERT INTO `products` (id_product,id_category,id_brand,name,description,code,price,quantity) VALUES (8,1,22,'Nature Valley Crunchy Granola Bars, Variety Pack','Nature Valley Crunchy Granola Bars, Variety Pack of Cinnamon, Oats ''n Honey, and Peanut Butter, 12-Count Boxes (Pack of 6)','B001E6IUMY','017.77',30);
+INSERT INTO `products` (id_product,id_category,id_brand,name,description,code,price,quantity) VALUES (9,4,1,'Canon G12 10MP Digital Camera with 5x Zoom','Canon G12 10MP Digital Camera with 5x Optical Image Stabilized Zoom and 2.8 inch Vari-Angle LCD','B0041RSPRS','414.95',11);
+INSERT INTO `products` (id_product,id_category,id_brand,name,description,code,price,quantity) VALUES (10,4,9,'Samsung Star GT-S5230','Unlocked Phone with Full Touchscreen Quad-Band GSM Bluetooth, 3.2 MP Camera, Voice Record, MP3 and MP4 Speaker Phone--U.S. Version with 1 Year Warranty (Black)','B002YIH1GW','097.95',12);
+INSERT INTO `products` (id_product,id_category,id_brand,name,description,code,price,quantity) VALUES (11,3,7,'Toshiba Satellite A665D-S6051','LED TruBrite 16-Inch Laptop (Black). 1.6 GHz AMD Phenom II P920 quad-core processor. 4GB RAM. 500GB HD, DVD. 16-inch widescreen HD, ATI Radeon card','B003MVZ8BK','659.99',14);

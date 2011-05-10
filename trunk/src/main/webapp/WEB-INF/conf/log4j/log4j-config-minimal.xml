@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j = "http://jakarta.apache.org/log4j/">
+
+
+	 <!--APPENDERS-->
+    <appender name = "console" class = "org.apache.log4j.ConsoleAppender">
+        <layout class = "org.apache.log4j.PatternLayout">
+           <param name="ConversionPattern" value="[%d{dd-MM-yy HH:mm:ss,SSS}] %5p (%45C{4}-%30M:%4L) -> %m%n"/>
+        </layout>
+    </appender>
+
+
+	<!--LOGGERS: App-->
+    <logger name = "mx.com.juca.store.business" additivity = "false">
+        <level value = "DEBUG"/>
+        <appender-ref ref = "console"/>
+    </logger>
+    <logger name = "mx.com.juca.store.persistence.dao" additivity = "false">
+        <level value = "DEBUG"/>
+        <appender-ref ref = "console"/>
+    </logger>
+    <logger name = "mx.com.juca.store.test" additivity = "false">
+        <level value = "ALL"/>
+        <appender-ref ref = "console"/>
+    </logger>    
+              
+    <!--LOGGERS: Framework-->
+    <logger name = "org.hibernate" additivity = "true">
+        <level value = "DEBUG"/>
+        <appender-ref ref = "console"/>
+    </logger>
+    <logger name = "org.hibernate.cfg" additivity = "false">
+        <level value = "WARN"/>
+        <appender-ref ref = "console"/>
+    </logger>
+                    
+    <logger name = "org.springframework" additivity = "false">
+        <level value = "WARN"/>
+        <appender-ref ref = "console"/>
+    </logger>
+    <logger name = "org.springframework.orm" additivity = "false">
+        <level value = "INFO"/>
+        <appender-ref ref = "console"/>
+    </logger>
+
+    <!--ROOT-->
+    <root>    
+        <level value = "INFO"/>
+        <appender-ref ref = "console"/>
+    </root>
+  
+</log4j:configuration>

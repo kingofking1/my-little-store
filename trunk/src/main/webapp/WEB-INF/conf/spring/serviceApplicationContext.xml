@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+              
+	<!-- ===============   JTA   ==========================================-->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="mySqlSessionFactory" />
+		</property>
+	</bean>
+
+
+	<!-- ===============   Scheduled task   ================================
+	<bean id="MySecondJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	  <property name="targetObject" ref="ClientBO" />
+	  <property name="targetMethod" value="getAllClients" />
+	  <property name="concurrent" value="false" />
+	</bean>			
+	<bean id="MyJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.vzw.gsb.repository.util.CustomScheduledTask"/>
+		<property name="jobDataAsMap">
+			<map>
+		    	<entry key="clientBO" value-ref="ClientBO" />
+			</map>
+		</property>
+	</bean>
+	<bean id="MyCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="MyJobDetail"/>
+		<property name="cronExpression">
+			<value>0 15 11,12 * * ?</value>
+		</property>
+	</bean>
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="MyCronTrigger" />
+			</list>
+		</property>
+	</bean>	
+	-->
+	
+	<!-- ===============   Email Sender   ================================-->
+	<bean id="MailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="mre.vzwcorp.com"/>
+	</bean>	
+			
+	<!-- ============================= Properties =========================-->
+	<bean id="EnvConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	 <!-- property name="location" value="classpath:env_doit.properties"/-->
+	</bean>
+
+
+	<!--======================  Transaction Managers  =====================-->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+
+	<!--==================  Business Objects/Service Objects  =============-->
+	<bean id="CatalogsService" class="mx.com.juca.store.business.service.impl.CatalogsServiceImpl"/>
+	
+	<bean id="CustomerService" class="mx.com.juca.store.business.service.impl.CustomerServiceImpl"/>
+	
+	<bean id="OrderService" class="mx.com.juca.store.business.service.impl.OrderServiceImpl"/>	
+</beans>

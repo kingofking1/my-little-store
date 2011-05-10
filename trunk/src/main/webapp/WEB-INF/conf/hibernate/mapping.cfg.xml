@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- ====================== MAPPINGS POJOS ============================ -->
+		<mapping class="mx.com.juca.store.persistence.domain.Brand" />
+		<mapping class="mx.com.juca.store.persistence.domain.Category" />
+		<mapping class="mx.com.juca.store.persistence.domain.CreditCard" />
+		<mapping class="mx.com.juca.store.persistence.domain.Customer" />
+		<mapping class="mx.com.juca.store.persistence.domain.Order" />
+		<mapping class="mx.com.juca.store.persistence.domain.Product" />
+		<mapping class="mx.com.juca.store.persistence.domain.ProductOrder" />
+	</session-factory>
+</hibernate-configuration>

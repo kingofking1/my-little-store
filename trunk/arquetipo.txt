@@ -1,0 +1,37 @@
+mvn archetype:create -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-webapp -DgroupId=mx.com.juca.store -DartifactId=little-store
+
+Plugin de Hibernate 3 para Maven
+
+>mvn hibernate3:hbm2hbmxml
+	Generates a set of hbm.xml files
+
+>mvn hibernate3:hbm2java
+	Generates Java classes from set of *.hbm.xml files
+
+>mvn hibernate3:hbm2ddl
+	Generates Script & Tables using basic hibernate configuration
+
+>mvn hibernate3:hbm2doc
+	Generates HTML documentation for the database schema.
+
+>mvn hibernate3:hbmtemplate
+	Renders arbitrary templates against Hibernate Mapping information.	
+	
+	
+>mvn javadoc:javadoc  (Generate Javadoc)	
+
+>mvn jxr:jxr (Produces a cross-reference of the project's sources)
+
+>mvn dependency:analyze 
+
+>mvn dependency:tree
+
+>mvn help:describe -Dcmd=compiler:compile
+
+>mvn help:describe -Dcmd=compiler:compile -Ddetail
+
+
+
+JCaptcha Refs
+http://parasjain.net/2008/11/11/jcaptcha-with-spring/
+http://jcaptcha.octo.com/confluence/display/general/ImageCaptchaEngine+components+reference#ImageCaptchaEnginecomponentsreference-Backgrounds

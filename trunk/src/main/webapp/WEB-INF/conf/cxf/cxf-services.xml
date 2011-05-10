@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     	xmlns:cxf="http://cxf.apache.org/core"
+     	xmlns:jaxws="http://cxf.apache.org/jaxws"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+         http://www.springframework.org/schema/tx 
+         http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+         http://www.springframework.org/schema/aop 
+         http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+         http://cxf.apache.org/core
+         http://cxf.apache.org/schemas/core.xsd
+         http://cxf.apache.org/jaxws
+         http://cxf.apache.org/schemas/jaxws.xsd">
+       
+	<!-- =========================== Useful Imports ===========================-->
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+ 
+ 	<!-- =========================== Aegis data binding ===========================-->
+ 	<bean id="AegisDatabindingBean" class="org.apache.cxf.aegis.databinding.AegisDatabinding" scope="prototype"/>
+  
+ 	<bean id="JaxWsServiceFactoryBean" class="org.apache.cxf.jaxws.support.JaxWsServiceFactoryBean" scope="prototype"> 
+  		<property name="dataBinding" ref="AegisDatabindingBean"/>
+        <property name="serviceConfigurations">
+            <list>
+              <bean class="org.apache.cxf.jaxws.support.JaxWsServiceConfiguration"/>
+              <bean class="org.apache.cxf.aegis.databinding.AegisServiceConfiguration"/>
+              <bean class="org.apache.cxf.service.factory.DefaultServiceConfiguration"/> 
+            </list>
+        </property>
+  	</bean> 
+
+ 	<!-- =========================== Web Services ===========================-->
+ 	<jaxws:endpoint id="orderService" 
+  		implementorClass="mx.com.juca.store.business.service.impl.OrderServiceImpl" 
+  		implementor="#OrderService" 
+  		address="/OrderService">
+  		<jaxws:serviceFactory>
+      		<ref bean='JaxWsServiceFactoryBean' />
+    	</jaxws:serviceFactory> 
+ 	</jaxws:endpoint>
+ 
+</beans>
