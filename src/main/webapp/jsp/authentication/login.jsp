@@ -30,7 +30,11 @@
 	<TR>
 		<TD><label for="password" title="Enter your password"><fmt:message key="login.password"/></label></TD>
 		<TD><form:password path="password" maxlength="45" size="20" autocomplete="false" /></TD>
-	</TR>	
+	</TR>
+	<TR>
+		<TD><label for="rememberMe"><fmt:message key="login.rememberMe"/></label></TD>
+		<TD><input type="checkbox" name="rememberMe" id="rememberMe" value="true"/></TD>
+	</TR>		
 	<TR>
 		<TD colspan="2"><input type="button" value="Sign In" onclick="JavaScript:doSubmit(this.form);"/>	</TD>
 	</TR>

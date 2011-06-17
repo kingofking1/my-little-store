@@ -12,7 +12,7 @@
 <div id="side-bar">
 	<UL>
     <LI><a href="<c:url value="/showLandingPage.do"/>"><fmt:message key="index.title"/></a> 
-	<LI><a href="${logoutURL}"><fmt:message key="button.logout"/></a>
+	<!-- LI><a href="${logoutURL}"><fmt:message key="button.logout"/></a-->
 	<LI><a href="${viewShoppingCartContentURL}"><fmt:message key="button.view.shopping.cart"/></a>
 	<LI><a href="${searchProductsURL}"><fmt:message key="button.search.products"/></a>
 	<LI><a href="${viewMyOrdersURL}"><fmt:message key="button.view.orders"/></a>

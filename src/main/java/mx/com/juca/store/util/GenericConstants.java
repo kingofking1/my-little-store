@@ -7,6 +7,9 @@ package mx.com.juca.store.util;
  */
 public interface GenericConstants {
 
+	String AUTH_SESSION = "AUTH_SESSION";
+	Integer TIME_TO_LIVE = 60; 
+	
 	Integer APPLICATION_ERROR = 99;
 	Integer DB_RELATED_ERROR = 8075;
 	
