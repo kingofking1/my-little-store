@@ -1,5 +1,6 @@
 package mx.com.juca.store.web.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -42,7 +43,8 @@ public class CustomerController extends mx.com.juca.store.web.BaseCustomControll
 	@RequestMapping(value = "doLogin.do", method=RequestMethod.POST)
 	public String authenticateUser(HttpServletRequest request,
 			HttpServletResponse response, ModelMap modelMap,
-			@ModelAttribute("CustomerDTO") CustomerDTO paramCustomerDTO) {
+			@ModelAttribute("CustomerDTO") CustomerDTO paramCustomerDTO,
+			@RequestParam("rememberMe") Boolean rememberMe) {
 		
 		log.debug("authenticateUser="+paramCustomerDTO.getEmail());
 		CustomerDTO customerDTO = null;
@@ -60,6 +62,13 @@ public class CustomerController extends mx.com.juca.store.web.BaseCustomControll
 				customerDTO.setShoppingCart(new ShoppingCart());
 				modelMap.put(GenericConstants.KEY_USER, customerDTO);
 				this.getUserContainer(request).setCustomerDTO(customerDTO);
+				
+				if(rememberMe){
+					log.debug("Populate Headers and Cookie");
+					this.generateAuthenticationCookie(request, response);
+					this.generateAuthenticationHeader(request, response);
+				}
+				
 				return "redirect:/showLandingPage.do"; //Send user to Landig page
 			}else{
 				modelMap.put(GenericConstants.KEY_ERROR, paramCustomerDTO.getEmail()+" and password provided were not found, please review your password and user Id and try again");
@@ -80,21 +89,35 @@ public class CustomerController extends mx.com.juca.store.web.BaseCustomControll
 	
 
 	@RequestMapping(value = "logout.do")
-	public String logoutUser(HttpServletRequest request, ModelMap modelMap) {
+	public String logoutUser(HttpServletRequest request, HttpServletResponse response, 
+			ModelMap modelMap) {
 		log.debug("logoutUser");
 		this.getUserContainer(request).cleanUp();
 		if(request.getSession(false)!=null){
 			request.getSession(false).invalidate();
 		}
+		//Delete cookie
+		this.expireAuthenticationCookie(request, response);
 		return "redirect:/authentication/login.do";
 	}
 	
 	@RequestMapping(value = "login.do")
 	public String showLogin(HttpServletRequest request, ModelMap modelMap) {
-		log.debug("Create new DTO and Show login.jsp");
-		CustomerDTO customerDTO = new CustomerDTO();
-		modelMap.put("CustomerDTO", customerDTO);			
-		return "authentication/login";//show jsp
+		log.debug("Looking for Auth Cookie");
+		if(this.isAuthenticationCookiePresent(request)){
+			log.debug("Present");
+			Cookie cookie = this.getAuthenticationCookie(request);
+			CustomerDTO customerDTO = new CustomerDTO();
+			customerDTO.setEmail(StringUtils.substringBefore(cookie.getValue(), "|-|"));
+			customerDTO.setPassword(StringUtils.substringAfterLast(cookie.getValue(), "|-|"));
+			return this.authenticateUser(request, null, modelMap, customerDTO, false);	
+		}else{
+			log.debug("Nothing");
+			log.debug("Create new DTO and Show login.jsp");
+			CustomerDTO customerDTO = new CustomerDTO();
+			modelMap.put("CustomerDTO", customerDTO);			
+			return "authentication/login";//show jsp
+		}
 	}
 	
 	
@@ -141,7 +164,7 @@ public class CustomerController extends mx.com.juca.store.web.BaseCustomControll
 		}
 		if(result){
 			log.debug("Signup was successfull for "+paramCustomerDTO.getEmail()+", proceed to SignIn");
-			return this.authenticateUser(request, null, modelMap, paramCustomerDTO);	
+			return this.authenticateUser(request, null, modelMap, paramCustomerDTO, false);	
 		}
 		
 		return this.showSignUpScreen(request, modelMap, paramCustomerDTO);

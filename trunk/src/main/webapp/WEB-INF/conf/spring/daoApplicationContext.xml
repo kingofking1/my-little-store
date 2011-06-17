@@ -11,7 +11,7 @@
               http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">              	
 
 	<!-- =========================  Data Sources  ============================= -->
-		
+	<!-- 	
 	<bean id="mySqlDataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/little_store?autoReconnect=true"/>
@@ -35,18 +35,18 @@
 		<property name="password" value="1234"/>
 		<property name="defaultCatalog" value="public"/>
 	</bean>		
-	<!-- 
+	-->
 	<jee:jndi-lookup id="mySqlDataSource" jndi-name="java:comp/env/jdbc/littleStoreDS"/>
 	<jee:jndi-lookup id="hSqlDataSource" jndi-name="java:comp/env/jdbc/paymentsDS"/>
 	<jee:jndi-lookup id="postgreSqlDataSource" jndi-name="java:comp/env/jdbc/paymentsDS"/>
-	 -->
+	 
 	<!--============================= SessionFactory ===============================-->
 	<bean id="mySqlSessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="mySqlDataSource" />
 		<property name="configLocation">
-			<!-- <value>/WEB-INF/conf/hibernate/mapping.cfg.xml</value> -->
-			<value>file:src/main/webapp/WEB-INF/conf/hibernate/mapping.cfg.xml</value>
+			<value>/WEB-INF/conf/hibernate/mapping.cfg.xml</value>
+			<!-- <value>file:src/main/webapp/WEB-INF/conf/hibernate/mapping.cfg.xml</value> -->
 		</property>
 		<property name="hibernateProperties">
 			<props>
@@ -77,8 +77,8 @@
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="postgreSqlDataSource" />
 		<property name="configLocation">
-			<!-- <value>/WEB-INF/conf/hibernate/mapping_payments.cfg.xml</value> -->
-			<value>file:src/main/webapp/WEB-INF/conf/hibernate/mapping_payments.cfg.xml</value>
+			<value>/WEB-INF/conf/hibernate/mapping_payments.cfg.xml</value>
+			<!-- <value>file:src/main/webapp/WEB-INF/conf/hibernate/mapping_payments.cfg.xml</value> -->
 		</property>
 		<property name="hibernateProperties">
 			<props>
