@@ -49,7 +49,9 @@ public abstract class BaseCustomController {
 	protected final void putObjectInSession(HttpServletRequest request,
 			String attrName, Object attrValue) {
 		HttpSession session = request.getSession(false);
-		session.setAttribute(attrName, attrValue);
+    if (session != null) {
+        session.setAttribute(attrName, attrValue);
+    }
 	}
 
 	/**
@@ -90,7 +92,12 @@ public abstract class BaseCustomController {
 	 */
 	protected final Object getApplicationObject(HttpServletRequest request,
 			String attrName) {
-		return request.getSession().getServletContext().getAttribute(attrName);
+      Object result = null;
+      HttpSession session = request.getSession(false);
+      if (session != null) {
+        result = session.getServletContext().getAttribute(attrName)
+      }
+      return result;
 	}
 
 	/**
@@ -161,11 +168,10 @@ public abstract class BaseCustomController {
 	 */
 	protected final boolean isAuthenticationCookiePresent(HttpServletRequest request){
 		boolean result = false;
-		for (Cookie cookie : request.getCookies()){
-			if(GenericConstants.AUTH_SESSION.equalsIgnoreCase(cookie.getName())){
-				result = true;
-			}
-		}
+		Cookie cookie = this.getAuthenticationCookie(request);
+    if(cookie!=null){
+      result = true;
+    }  
 		return result;
 	}
 	
