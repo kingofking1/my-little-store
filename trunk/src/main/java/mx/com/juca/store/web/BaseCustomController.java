@@ -95,7 +95,7 @@ public abstract class BaseCustomController {
       Object result = null;
       HttpSession session = request.getSession(false);
       if (session != null) {
-        result = session.getServletContext().getAttribute(attrName)
+        result = session.getServletContext().getAttribute(attrName);
       }
       return result;
 	}
